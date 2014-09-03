@@ -13,6 +13,10 @@
 		63026B5119B6E99F00FF4729 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63026B4F19B6E99F00FF4729 /* Main.storyboard */; };
 		63026B5319B6E99F00FF4729 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63026B5219B6E99F00FF4729 /* Images.xcassets */; };
 		63026B5F19B6E99F00FF4729 /* Overdue_Task_ListTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 63026B5E19B6E99F00FF4729 /* Overdue_Task_ListTests.m */; };
+		63026B6A19B6EAB300FF4729 /* AddTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63026B6919B6EAB300FF4729 /* AddTaskViewController.m */; };
+		63026B6D19B6EAD000FF4729 /* DetailTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63026B6C19B6EAD000FF4729 /* DetailTaskViewController.m */; };
+		63026B7019B6EAED00FF4729 /* EditTaskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63026B6F19B6EAED00FF4729 /* EditTaskViewController.m */; };
+		63026B7519B6F45300FF4729 /* Task.m in Sources */ = {isa = PBXBuildFile; fileRef = 63026B7419B6F45300FF4729 /* Task.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +42,15 @@
 		63026B5819B6E99F00FF4729 /* Overdue Task ListTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Overdue Task ListTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		63026B5D19B6E99F00FF4729 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63026B5E19B6E99F00FF4729 /* Overdue_Task_ListTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Overdue_Task_ListTests.m; sourceTree = "<group>"; };
+		63026B6819B6EAB300FF4729 /* AddTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddTaskViewController.h; sourceTree = "<group>"; };
+		63026B6919B6EAB300FF4729 /* AddTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddTaskViewController.m; sourceTree = "<group>"; };
+		63026B6B19B6EAD000FF4729 /* DetailTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailTaskViewController.h; sourceTree = "<group>"; };
+		63026B6C19B6EAD000FF4729 /* DetailTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailTaskViewController.m; sourceTree = "<group>"; };
+		63026B6E19B6EAED00FF4729 /* EditTaskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditTaskViewController.h; sourceTree = "<group>"; };
+		63026B6F19B6EAED00FF4729 /* EditTaskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditTaskViewController.m; sourceTree = "<group>"; };
+		63026B7119B6F20600FF4729 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		63026B7319B6F45300FF4729 /* Task.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Task.h; sourceTree = "<group>"; };
+		63026B7419B6F45300FF4729 /* Task.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Task.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,10 +92,17 @@
 		63026B4419B6E99F00FF4729 /* Overdue Task List */ = {
 			isa = PBXGroup;
 			children = (
+				63026B7619B6F47300FF4729 /* Model */,
 				63026B4919B6E99F00FF4729 /* AppDelegate.h */,
 				63026B4A19B6E99F00FF4729 /* AppDelegate.m */,
 				63026B4C19B6E99F00FF4729 /* ViewController.h */,
 				63026B4D19B6E99F00FF4729 /* ViewController.m */,
+				63026B6819B6EAB300FF4729 /* AddTaskViewController.h */,
+				63026B6919B6EAB300FF4729 /* AddTaskViewController.m */,
+				63026B6E19B6EAED00FF4729 /* EditTaskViewController.h */,
+				63026B6F19B6EAED00FF4729 /* EditTaskViewController.m */,
+				63026B6B19B6EAD000FF4729 /* DetailTaskViewController.h */,
+				63026B6C19B6EAD000FF4729 /* DetailTaskViewController.m */,
 				63026B4F19B6E99F00FF4729 /* Main.storyboard */,
 				63026B5219B6E99F00FF4729 /* Images.xcassets */,
 				63026B4519B6E99F00FF4729 /* Supporting Files */,
@@ -95,6 +115,7 @@
 			children = (
 				63026B4619B6E99F00FF4729 /* Info.plist */,
 				63026B4719B6E99F00FF4729 /* main.m */,
+				63026B7119B6F20600FF4729 /* PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -114,6 +135,15 @@
 				63026B5D19B6E99F00FF4729 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		63026B7619B6F47300FF4729 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				63026B7319B6F45300FF4729 /* Task.h */,
+				63026B7419B6F45300FF4729 /* Task.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,9 +245,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63026B7519B6F45300FF4729 /* Task.m in Sources */,
 				63026B4E19B6E99F00FF4729 /* ViewController.m in Sources */,
+				63026B6A19B6EAB300FF4729 /* AddTaskViewController.m in Sources */,
 				63026B4B19B6E99F00FF4729 /* AppDelegate.m in Sources */,
+				63026B7019B6EAED00FF4729 /* EditTaskViewController.m in Sources */,
 				63026B4819B6E99F00FF4729 /* main.m in Sources */,
+				63026B6D19B6EAD000FF4729 /* DetailTaskViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
