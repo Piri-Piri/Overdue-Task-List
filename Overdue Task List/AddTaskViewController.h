@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Task.h"
 
-@protocol AddTaskViewConrollerDelegate <NSObject>
+@protocol AddTaskViewControllerDelegate <NSObject>
 
 @required
 -(void)didAddTask:(Task *)task;
@@ -19,7 +19,7 @@
 
 @interface AddTaskViewController : UIViewController
 
-@property (weak, nonatomic) id <AddTaskViewConrollerDelegate> delegate;
+@property (weak, nonatomic) id <AddTaskViewControllerDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UITextField *taskNameTextField;
 @property (weak, nonatomic) IBOutlet UITextView *taskDescriptionTextView;

@@ -8,7 +8,7 @@
 
 #import "ViewController.h"
 #import "PrefixHeader.pch"
-#import "Task.h"
+
 
 @interface ViewController ()
 
@@ -22,6 +22,10 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
     
+    NSArray *savedTaskObjects = [[NSUserDefaults standardUserDefaults] objectForKey:TASK_OBJECTS_KEY];
+    for (NSDictionary *taskDict in savedTaskObjects) {
+        [self.taskObjects addObject:[self taskObjectForDictionary:taskDict]];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,6 +51,106 @@
     return _taskObjects;
 }
 
+#pragma mark - TableView data source
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    // only one section defined
+    return 1;
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [self.taskObjects count];
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    static NSString *CellIdentifier = @"taskCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    //Configure the cell...
+    
+    // catch corresponding the task object
+    Task *task = [self.taskObjects objectAtIndex:indexPath.row];
+    
+    cell.textLabel.text = task.taskTitle;
+    
+    // Set date format
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
+    
+    cell.detailTextLabel.text = [formatter stringFromDate:task.taskDate];
+    
+    
+    if ([self isDateGreaterThanDate:task.taskDate and:[NSDate date]]) {
+        cell.backgroundColor = [UIColor redColor];
+    } else {
+        cell.backgroundColor = [UIColor yellowColor];
+    }
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    Task *taskObject = [self.taskObjects objectAtIndex:indexPath.row];
+    
+    // update completion status (toogle)
+    [self updateCompletionOfTask:taskObject forIndexPath:indexPath];
+    
+    /*
+     Update the background colors of the cell to show the completion status. 
+     If the task isCompleted set the background color to green, 
+     if it is overdue set the color to red and 
+     if the task is not completed and not overdue set it to yellow.
+    */
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    if (taskObject.isTaskCompleted) {
+        cell.backgroundColor = [UIColor greenColor];
+    } else if ([self isDateGreaterThanDate:taskObject.taskDate and:[NSDate date]]) {
+        cell.backgroundColor = [UIColor redColor];
+    } else {
+        cell.backgroundColor = [UIColor yellowColor];
+    }
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    [self performSegueWithIdentifier:@"toDetailTaskViewController" sender:indexPath];
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+         
+        // Delete the row from NSDefaults
+        // ...
+         
+        // Delete the row from NSMutableArray (taskObjects)
+        // ...
+    }
+}
+
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
+    // Move the row in data source
+    //...
+    
+    // Move the row in NSDefaults
+    //...
+    
+    // Move the row in NSMutableArray (taskObjects)
+    //...
+}
+
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
+     // Return NO if you do not want the item to be re-orderable.
+     return YES;
+}
+
 #pragma mark - Navigation
 
 -(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -55,6 +159,13 @@
             AddTaskViewController *addTaskViewController = segue.destinationViewController;
             addTaskViewController.delegate = self;
         }
+    }
+    if ([segue.destinationViewController isKindOfClass:[DetailTaskViewController class]]) {
+        NSIndexPath *indexPath = sender;
+        
+        // forward selected task object to DetailTaskViewController
+        DetailTaskViewController *detailTaskViewController = segue.destinationViewController;
+        detailTaskViewController.task = [self.taskObjects objectAtIndex:indexPath.row];
     }
 }
 
@@ -67,7 +178,7 @@
     [self.taskObjects addObject:task];
     
     // load saved tasks
-    NSMutableArray *tasksAsPropertyLists = [[[NSUserDefaults standardUserDefaults] arrayForKey:TASK_OBJECTS] mutableCopy];
+    NSMutableArray *tasksAsPropertyLists = [[[NSUserDefaults standardUserDefaults] arrayForKey:TASK_OBJECTS_KEY] mutableCopy];
     
     // init, if no saved tasks at NSUSerDefaults found
     if (!tasksAsPropertyLists) tasksAsPropertyLists = [[NSMutableArray alloc] init];
@@ -76,11 +187,11 @@
     [tasksAsPropertyLists addObject:[self taskObjectAsDictionary:task]];
     
     // write array with tasks (NSDictionary) back to NSUSerDefaults
-    [[NSUserDefaults standardUserDefaults] setObject:tasksAsPropertyLists forKey:TASK_OBJECTS];
+    [[NSUserDefaults standardUserDefaults] setObject:tasksAsPropertyLists forKey:TASK_OBJECTS_KEY];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
     // refresh tableview with new data
-    //[self.tableView reloadData];
+    [self.tableView reloadData];
     
     // dismiss modal segue animated
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -94,7 +205,7 @@
 #pragma mark - Helper Methods
 
 -(NSDictionary *)taskObjectAsDictionary:(Task *)taskObject {
-    NSDictionary *taskDict = [[NSDictionary alloc] init];
+    NSMutableDictionary *taskDict = [[NSMutableDictionary alloc] init];
     [taskDict setValue:taskObject.taskTitle forKey:TASK_TITLE];
     [taskDict setValue:taskObject.taskDescription forKey:TASK_DESCRIPTION];
     [taskDict setValue:taskObject.taskDate forKey:TASK_DATE];
@@ -106,6 +217,27 @@
 -(Task *)taskObjectForDictionary:(NSDictionary *)taskDict {
     Task *task = [[Task alloc] initWithData:taskDict];
     return task;
+}
+
+- (BOOL)isDateGreaterThanDate:(NSDate*)date and:(NSDate*)toDate {
+    int timeInterval = [date timeIntervalSince1970];
+    int toTimeInterval = [toDate timeIntervalSince1970];
+    
+    if (timeInterval > toTimeInterval) return YES;
+    return NO;
+}
+
+-(void)updateCompletionOfTask:(Task *)task forIndexPath:(NSIndexPath *)indexPath {
+    NSMutableArray *savedTaskObjects = [[[NSUserDefaults standardUserDefaults] objectForKey:TASK_OBJECTS_KEY] mutableCopy];
+    
+    // remove the task to be updated
+    [savedTaskObjects removeObjectAtIndex:indexPath.row];
+    
+    // toogle task completion state
+    task.isTaskCompleted = !task.isTaskCompleted;
+    
+    // save updated task object as dictionary
+    [savedTaskObjects insertObject:[self taskObjectAsDictionary:task] atIndex:indexPath.row];
 }
 
 @end

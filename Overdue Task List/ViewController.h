@@ -7,12 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Task.h"
 #import "AddTaskViewController.h"
+#import "DetailTaskViewController.h"
 
-@interface ViewController : UIViewController <AddTaskViewConrollerDelegate>
+@interface ViewController : UIViewController <AddTaskViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 - (IBAction)orderTasksAction:(UIBarButtonItem *)sender;
 - (IBAction)addTaskAction:(UIBarButtonItem *)sender;
+
 
 @end
 
