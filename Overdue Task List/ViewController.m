@@ -9,7 +9,6 @@
 #import "ViewController.h"
 #import "PrefixHeader.pch"
 
-
 @interface ViewController ()
 
 @property (strong,nonatomic) NSMutableArray *taskObjects;
@@ -34,7 +33,8 @@
 }
 
 - (IBAction)orderTasksAction:(UIBarButtonItem *)sender {
-    // ...
+    // toogle edit mode for editing (reorder) in tableview
+    self.tableView.editing = !self.tableView.editing;
 }
 
 - (IBAction)addTaskAction:(UIBarButtonItem *)sender {
@@ -111,19 +111,24 @@
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"performSeguetoDetailTaskViewController");
     [self performSegueWithIdentifier:@"toDetailTaskViewController" sender:indexPath];
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-         
-        // Delete the row from NSDefaults
-        // ...
+        // Read NSUserDefaults, delete row...
+        NSMutableArray *savedTaskObjects = [[[NSUserDefaults standardUserDefaults] objectForKey:TASK_OBJECTS_KEY] mutableCopy];
+        [savedTaskObjects removeObjectAtIndex:indexPath.row];
+        // and write back to NSUserDefaults
+        [[NSUserDefaults standardUserDefaults] setObject:savedTaskObjects forKey:TASK_OBJECTS_KEY];
+        [[NSUserDefaults standardUserDefaults] synchronize];
          
         // Delete the row from NSMutableArray (taskObjects)
-        // ...
+        [self.taskObjects removeObjectAtIndex:indexPath.row];
+        
+        // Delete the row from the data source
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
 
@@ -132,14 +137,15 @@
 }
 
 - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-    // Move the row in data source
-    //...
-    
-    // Move the row in NSDefaults
-    //...
+    // Read NSUserDefaults, move row...
+    NSMutableArray *savedTaskObjects = [[[NSUserDefaults standardUserDefaults] objectForKey:TASK_OBJECTS_KEY] mutableCopy];
+    [savedTaskObjects exchangeObjectAtIndex:fromIndexPath.row withObjectAtIndex:toIndexPath.row];
+    // and write back to NSUserDefaults
+    [[NSUserDefaults standardUserDefaults] setObject:savedTaskObjects forKey:TASK_OBJECTS_KEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
     // Move the row in NSMutableArray (taskObjects)
-    //...
+    [self.taskObjects exchangeObjectAtIndex:fromIndexPath.row withObjectAtIndex:toIndexPath.row];
 }
 
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {

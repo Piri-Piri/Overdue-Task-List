@@ -13,7 +13,7 @@
 
 @property (strong, nonatomic) Task *task;
 
-@property (weak, nonatomic) IBOutlet UILabel *taskNameLAbel;
+@property (weak, nonatomic) IBOutlet UILabel *taskNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *taskDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *taskDateLabel;
 

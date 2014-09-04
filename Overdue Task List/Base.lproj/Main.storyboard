@@ -62,7 +62,7 @@
                     <connections>
                         <outlet property="tableView" destination="71n-dM-4Ly" id="0hg-ru-1KV"/>
                         <segue destination="eHA-S5-bfo" kind="modal" identifier="toAddTaskViewController" id="GoU-bH-RSx"/>
-                        <segue destination="nXt-x0-3p5" kind="push" identifier="toDetailViewController" id="yhb-sT-RJm"/>
+                        <segue destination="nXt-x0-3p5" kind="push" identifier="toDetailTaskViewController" id="yhb-sT-RJm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
@@ -196,23 +196,26 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="taskName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lva-6R-sGd">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="taskName" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lva-6R-sGd">
                                 <rect key="frame" x="16" y="100" width="288" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="taskDescription" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="h8k-Ik-V2d">
-                                <rect key="frame" x="16" y="161" width="288" height="21"/>
+                                <rect key="frame" x="16" y="161" width="288" height="153"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="taskDate" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="g7P-y3-P3O">
-                                <rect key="frame" x="16" y="223" width="288" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="taskDate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="g7P-y3-P3O">
+                                <rect key="frame" x="16" y="355" width="288" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -230,7 +233,7 @@
                     <connections>
                         <outlet property="taskDateLabel" destination="g7P-y3-P3O" id="1Pl-o1-yKB"/>
                         <outlet property="taskDescriptionLabel" destination="h8k-Ik-V2d" id="rqn-mw-XVD"/>
-                        <outlet property="taskNameLAbel" destination="lva-6R-sGd" id="s8F-dJ-tms"/>
+                        <outlet property="taskNameLabel" destination="lva-6R-sGd" id="OZD-G2-rYD"/>
                         <segue destination="z16-VV-gT2" kind="push" identifier="toEditTaskController" id="rRA-LD-XFy"/>
                     </connections>
                 </viewController>
