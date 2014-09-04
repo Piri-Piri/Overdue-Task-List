@@ -13,7 +13,7 @@
 @protocol DetailTaskViewControllerDelegate <NSObject>
 
 @required
--(void)didChangeTask:(Task *)task;
+-(void)shouldSaveTask;
 
 @end
 

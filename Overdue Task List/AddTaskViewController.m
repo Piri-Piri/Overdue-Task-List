@@ -19,6 +19,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.taskNameTextField.delegate = self;
+    self.taskDescriptionTextView.delegate = self;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -48,6 +50,24 @@
 
     return newTaskObject;
 }
+
+#pragma mark - TextField Delegate
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+#pragma mark - TextView Delegate 
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
+}
+
 
 /*
 #pragma mark - Navigation

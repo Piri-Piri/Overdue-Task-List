@@ -17,14 +17,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
     self.taskNameLabel.text = self.task.taskTitle;
     self.taskDescriptionLabel.text = self.task.taskDescription;
     
-    // Set date format
+    // Set date format...
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
-    
+    // ...and present formmatted date
     self.taskDateLabel.text = [formatter stringFromDate:self.task.taskDate];
 }
 
@@ -54,8 +53,19 @@
 
 #pragma mark - EditTaskViewControllerDelegate
 
--(void)didSaveTask:(Task *)task {
-    // ...
+-(void)didSaveTask {
+    self.taskNameLabel.text = self.task.taskTitle;
+    self.taskDescriptionLabel.text = self.task.taskDescription;
+    
+    // Set date format...
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
+    // ...and present formmatted date
+    self.taskDateLabel.text = [formatter stringFromDate:self.task.taskDate];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [self.delegate shouldSaveTask];
 }
 
 @end

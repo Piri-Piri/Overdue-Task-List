@@ -17,6 +17,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.taskNameTextField.delegate = self;
+    self.taskDescriptionTextView.delegate = self;
+    
     self.taskNameTextField.text = self.editedTask.taskTitle;
     self.taskDescriptionTextView.text = self.editedTask.taskDescription;
     self.taskDatePicker.date = self.editedTask.taskDate;
@@ -26,6 +29,23 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - TextField Delegate
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [textField resignFirstResponder];
+    return YES;
+}
+
+#pragma mark - TextView Delegate
+
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    }
+    return YES;
 }
 
 /*
@@ -39,5 +59,10 @@
 */
 
 - (IBAction)editedTaskSaveAction:(UIBarButtonItem *)sender {
+    self.editedTask.taskTitle = self.taskNameTextField.text;
+    self.editedTask.taskDescription = self.taskDescriptionTextView.text;
+    self.editedTask.taskDate = self.taskDatePicker.date;
+    
+    [self.delegate didSaveTask];
 }
 @end

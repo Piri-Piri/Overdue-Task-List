@@ -190,11 +190,26 @@
 
 #pragma mark - DetailViewController Delegate
 
--(void)didChangeTask:(Task *)task {
-     // ...
+-(void)shouldSaveTask{
+    // save task objects to nsuserdefaults (including the edited one)
+    // and reload the tableview data with it.
+    [self saveTasks];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Helper Methods
+
+-(void)saveTasks
+{
+    // collect all task object in a dictionary and save it to nsuserdefaults
+    NSMutableArray *taskObjectAsDictionary = [[NSMutableArray alloc] init];
+    for (int x = 0; x < [self.taskObjects count]; x ++){
+        [taskObjectAsDictionary addObject:[self taskObjectAsDictionary:self.taskObjects[x]]];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:taskObjectAsDictionary forKey:TASK_OBJECTS_KEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
 
 -(NSDictionary *)taskObjectAsDictionary:(Task *)taskObject {
     NSMutableDictionary *taskDict = [[NSMutableDictionary alloc] init];

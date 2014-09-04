@@ -7,16 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PrefixHeader.pch"
 #import "Task.h"
+
 
 @protocol EditTaskViewControllerDelegate <NSObject>
 
 @required
--(void)didSaveTask:(Task *)task;
+-(void)didSaveTask;
 
 @end
 
-@interface EditTaskViewController : UIViewController
+@interface EditTaskViewController : UIViewController <UITextFieldDelegate, UITextViewDelegate>
 
 @property (strong,nonatomic) Task *editedTask;
 @property (weak) id <EditTaskViewControllerDelegate> delegate;
