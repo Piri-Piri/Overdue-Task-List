@@ -79,35 +79,18 @@
     
     cell.detailTextLabel.text = [formatter stringFromDate:task.taskDate];
     
-    
-    if ([self isDateGreaterThanDate:task.taskDate and:[NSDate date]]) {
+    // Set background depending on task is overdue or not
+    if (task.isTaskCompleted) cell.backgroundColor = [UIColor greenColor];
+    else if ([self isDateGreaterThanDate:[NSDate date] and:task.taskDate])
         cell.backgroundColor = [UIColor redColor];
-    } else {
-        cell.backgroundColor = [UIColor yellowColor];
-    }
+    else cell.backgroundColor = [UIColor yellowColor];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+     // update completion status (toogle)
     Task *taskObject = [self.taskObjects objectAtIndex:indexPath.row];
-    
-    // update completion status (toogle)
     [self updateCompletionOfTask:taskObject forIndexPath:indexPath];
-    
-    /*
-     Update the background colors of the cell to show the completion status. 
-     If the task isCompleted set the background color to green, 
-     if it is overdue set the color to red and 
-     if the task is not completed and not overdue set it to yellow.
-    */
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if (taskObject.isTaskCompleted) {
-        cell.backgroundColor = [UIColor greenColor];
-    } else if ([self isDateGreaterThanDate:taskObject.taskDate and:[NSDate date]]) {
-        cell.backgroundColor = [UIColor redColor];
-    } else {
-        cell.backgroundColor = [UIColor yellowColor];
-    }
 }
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
@@ -240,6 +223,12 @@
     
     // save updated task object as dictionary
     [savedTaskObjects insertObject:[self taskObjectAsDictionary:task] atIndex:indexPath.row];
+    
+    // save the updated array to NSUserDefaults
+    [[NSUserDefaults standardUserDefaults] setObject:savedTaskObjects forKey:TASK_OBJECTS_KEY];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [self.tableView reloadData];
 }
 
 @end
