@@ -151,6 +151,7 @@
         // forward selected task object to DetailTaskViewController
         DetailTaskViewController *detailTaskViewController = segue.destinationViewController;
         detailTaskViewController.task = [self.taskObjects objectAtIndex:indexPath.row];
+        detailTaskViewController.delegate = self;
     }
 }
 
@@ -185,6 +186,12 @@
 -(void)didCancel {
     NSLog(@"The delegated method didCancel is being called");
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - DetailViewController Delegate
+
+-(void)didChangeTask:(Task *)task {
+     // ...
 }
 
 #pragma mark - Helper Methods

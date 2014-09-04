@@ -7,8 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Task.h"
+
+@protocol EditTaskViewControllerDelegate <NSObject>
+
+@required
+-(void)didSaveTask:(Task *)task;
+
+@end
 
 @interface EditTaskViewController : UIViewController
+
+@property (strong,nonatomic) Task *editedTask;
+@property (weak) id <EditTaskViewControllerDelegate> delegate;
 
 @property (weak, nonatomic) IBOutlet UITextField *taskNameTextField;
 @property (weak, nonatomic) IBOutlet UITextView *taskDescriptionTextView;

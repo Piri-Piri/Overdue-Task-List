@@ -11,7 +11,7 @@
 #import "AddTaskViewController.h"
 #import "DetailTaskViewController.h"
 
-@interface ViewController : UIViewController <AddTaskViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+@interface ViewController : UIViewController <AddTaskViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, DetailTaskViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 

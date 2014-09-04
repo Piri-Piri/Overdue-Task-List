@@ -99,10 +99,10 @@
 				63026B4D19B6E99F00FF4729 /* ViewController.m */,
 				63026B6819B6EAB300FF4729 /* AddTaskViewController.h */,
 				63026B6919B6EAB300FF4729 /* AddTaskViewController.m */,
-				63026B6E19B6EAED00FF4729 /* EditTaskViewController.h */,
-				63026B6F19B6EAED00FF4729 /* EditTaskViewController.m */,
 				63026B6B19B6EAD000FF4729 /* DetailTaskViewController.h */,
 				63026B6C19B6EAD000FF4729 /* DetailTaskViewController.m */,
+				63026B6E19B6EAED00FF4729 /* EditTaskViewController.h */,
+				63026B6F19B6EAED00FF4729 /* EditTaskViewController.m */,
 				63026B4F19B6E99F00FF4729 /* Main.storyboard */,
 				63026B5219B6E99F00FF4729 /* Images.xcassets */,
 				63026B4519B6E99F00FF4729 /* Supporting Files */,
@@ -436,6 +436,7 @@
 				63026B6419B6E99F00FF4729 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		63026B6519B6E99F00FF4729 /* Build configuration list for PBXNativeTarget "Overdue Task ListTests" */ = {
 			isa = XCConfigurationList;
@@ -444,6 +445,7 @@
 				63026B6719B6E99F00FF4729 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

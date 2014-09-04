@@ -7,10 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EditTaskViewController.h"
 #import "Task.h"
 
-@interface DetailTaskViewController : UIViewController
+@protocol DetailTaskViewControllerDelegate <NSObject>
 
+@required
+-(void)didChangeTask:(Task *)task;
+
+@end
+
+@interface DetailTaskViewController : UIViewController <EditTaskViewControllerDelegate>
+
+@property (weak) id <DetailTaskViewControllerDelegate> delegate;
 @property (strong, nonatomic) Task *task;
 
 @property (weak, nonatomic) IBOutlet UILabel *taskNameLabel;

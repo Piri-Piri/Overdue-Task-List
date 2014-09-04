@@ -234,7 +234,7 @@
                         <outlet property="taskDateLabel" destination="g7P-y3-P3O" id="1Pl-o1-yKB"/>
                         <outlet property="taskDescriptionLabel" destination="h8k-Ik-V2d" id="rqn-mw-XVD"/>
                         <outlet property="taskNameLabel" destination="lva-6R-sGd" id="OZD-G2-rYD"/>
-                        <segue destination="z16-VV-gT2" kind="push" identifier="toEditTaskController" id="rRA-LD-XFy"/>
+                        <segue destination="z16-VV-gT2" kind="push" identifier="toEditTaskViewController" id="rRA-LD-XFy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qMn-gt-ylG" userLabel="First Responder" sceneMemberID="firstResponder"/>

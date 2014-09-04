@@ -33,16 +33,29 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
+- (IBAction)editTaskAction:(UIBarButtonItem *)sender {
+    [self performSegueWithIdentifier:@"toEditTaskViewController" sender:sender];
+}
+
 #pragma mark - Navigation
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     // Get the new view controller using [segue destinationViewController].
     // Pass the selected object to the new view controller.
+    if ([sender isKindOfClass:[UIBarButtonItem class]]) {
+        if ([segue.destinationViewController isKindOfClass:[EditTaskViewController class]]) {
+            EditTaskViewController *editTaskViewController = segue.destinationViewController;
+            editTaskViewController.editedTask = self.task;
+            editTaskViewController.delegate = self;
+        }
+    }
 }
-*/
 
-- (IBAction)editTaskAction:(UIBarButtonItem *)sender {
+#pragma mark - EditTaskViewControllerDelegate
+
+-(void)didSaveTask:(Task *)task {
+    // ...
 }
+
 @end

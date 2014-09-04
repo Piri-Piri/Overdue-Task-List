@@ -17,6 +17,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.taskNameTextField.text = self.editedTask.taskTitle;
+    self.taskDescriptionTextView.text = self.editedTask.taskDescription;
+    self.taskDatePicker.date = self.editedTask.taskDate;
+
 }
 
 - (void)didReceiveMemoryWarning {
