@@ -27,7 +27,10 @@
 @property (weak, nonatomic) IBOutlet UITextView *taskDescriptionTextView;
 @property (weak, nonatomic) IBOutlet UIDatePicker *taskDatePicker;
 @property (weak, nonatomic) IBOutlet UISwitch *taskCompleteSwitch;
+@property (weak, nonatomic) IBOutlet UISlider *taskProgressSilder;
+@property (weak, nonatomic) IBOutlet UILabel *taskProgessLabel;
 
 - (IBAction)editedTaskSaveAction:(UIBarButtonItem *)sender;
+- (IBAction)updateProgessAction:(UISlider *)sender;
 
 @end

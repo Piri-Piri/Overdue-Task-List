@@ -25,6 +25,9 @@
     [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
     // ...and present formmatted date
     self.taskDateLabel.text = [formatter stringFromDate:self.task.taskDate];
+    self.taskProgessSlider.value = [self.task.taskProgess floatValue];
+    self.taskProgessSlider.enabled = NO;
+    self.taskProgressLabel.text = [NSString stringWithFormat:@"%i", (int)self.taskProgessSlider.value];
     self.taskCompletedSwitch.on = self.task.isTaskCompleted;
     self.taskCompletedSwitch.enabled = NO;
 }
@@ -64,6 +67,8 @@
     [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
     // ...and present formmatted date
     self.taskDateLabel.text = [formatter stringFromDate:self.task.taskDate];
+    self.taskProgessSlider.value = [self.task.taskProgess floatValue];
+    self.taskProgressLabel.text = [NSString stringWithFormat:@"%i", (int)self.taskProgessSlider.value];
     self.taskCompletedSwitch.on = self.task.isTaskCompleted;
     
     [self.navigationController popViewControllerAnimated:YES];

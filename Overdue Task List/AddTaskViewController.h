@@ -24,9 +24,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *taskNameTextField;
 @property (weak, nonatomic) IBOutlet UITextView *taskDescriptionTextView;
 @property (weak, nonatomic) IBOutlet UIDatePicker *taskDatePicker;
+@property (weak, nonatomic) IBOutlet UISlider *taskProgressSilder;
+@property (weak, nonatomic) IBOutlet UILabel *taskProgessLabel;
 
 - (IBAction)saveTaskAction:(UIButton *)sender;
 - (IBAction)cancelTaskAction:(UIButton *)sender;
+- (IBAction)updateProgessAction:(UISlider *)sender;
 
 
 @end

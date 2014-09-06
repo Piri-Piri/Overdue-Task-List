@@ -26,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *taskDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *taskDateLabel;
 @property (weak, nonatomic) IBOutlet UISwitch *taskCompletedSwitch;
+@property (weak, nonatomic) IBOutlet UISlider *taskProgessSlider;
+@property (weak, nonatomic) IBOutlet UILabel *taskProgressLabel;
 
 - (IBAction)editTaskAction:(UIBarButtonItem *)sender;
 

@@ -21,6 +21,8 @@
     // Do any additional setup after loading the view.
     self.taskNameTextField.delegate = self;
     self.taskDescriptionTextView.delegate = self;
+    
+    self.taskProgessLabel.text = [NSString stringWithFormat:@"%i", (int)self.taskProgressSilder.value];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -36,14 +38,21 @@
     [self.delegate didCancel];
 }
 
+- (IBAction)updateProgessAction:(UISlider *)sender {
+    self.taskProgessLabel.text = [NSString stringWithFormat:@"%i", (int)self.taskProgressSilder.value];
+}
+
 #pragma mark - Helper methodes
 
 -(Task *)returnNewTaskObject {
     Task *newTaskObject = [[Task alloc] init];
     
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_CAPITALIZE_TITEL] boolValue]) self.taskNameTextField.text = [self.taskNameTextField.text capitalizedString];
+    
     newTaskObject.taskTitle = self.taskNameTextField.text;
     newTaskObject.taskDescription = self.taskDescriptionTextView.text;
     newTaskObject.taskDate = self.taskDatePicker.date;
+    newTaskObject.taskProgess = @(self.taskProgressSilder.value);
     
     // initial value for completion
     newTaskObject.isTaskCompleted = NO;
@@ -54,6 +63,7 @@
 #pragma mark - TextField Delegate
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_CAPITALIZE_TITEL] boolValue]) textField.text = [textField.text  capitalizedString];
     [textField resignFirstResponder];
     return YES;
 }

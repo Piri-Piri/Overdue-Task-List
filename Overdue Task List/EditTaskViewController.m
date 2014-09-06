@@ -23,6 +23,8 @@
     self.taskNameTextField.text = self.editedTask.taskTitle;
     self.taskDescriptionTextView.text = self.editedTask.taskDescription;
     self.taskDatePicker.date = self.editedTask.taskDate;
+    self.taskProgressSilder.value = [self.editedTask.taskProgess floatValue];
+    self.taskProgessLabel.text = [NSString stringWithFormat:@"%i", (int)self.taskProgressSilder.value];
     self.taskCompleteSwitch.on = self.editedTask.isTaskCompleted;
 
 }
@@ -32,9 +34,29 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - IBAction methods
+
+- (IBAction)editedTaskSaveAction:(UIBarButtonItem *)sender {
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_CAPITALIZE_TITEL] boolValue]) self.taskNameTextField.text = [self.taskNameTextField.text capitalizedString];
+    
+    self.editedTask.taskTitle = self.taskNameTextField.text;
+    self.editedTask.taskDescription = self.taskDescriptionTextView.text;
+    self.editedTask.taskDate = self.taskDatePicker.date;
+    self.editedTask.taskProgess = @(self.taskProgressSilder.value);
+    self.editedTask.isTaskCompleted = self.taskCompleteSwitch.on;
+    
+    [self.delegate didSaveTask];
+}
+
+- (IBAction)updateProgessAction:(UISlider *)sender {
+    self.taskProgessLabel.text = [NSString stringWithFormat:@"%i", (int)self.taskProgressSilder.value];
+}
+
 #pragma mark - TextField Delegate
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField {
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_CAPITALIZE_TITEL] boolValue]) textField.text = [textField.text  capitalizedString];
+    
     [textField resignFirstResponder];
     return YES;
 }
@@ -58,14 +80,5 @@
     // Pass the selected object to the new view controller.
 }
 */
-
-- (IBAction)editedTaskSaveAction:(UIBarButtonItem *)sender {
-    self.editedTask.taskTitle = self.taskNameTextField.text;
-    self.editedTask.taskDescription = self.taskDescriptionTextView.text;
-    self.editedTask.taskDate = self.taskDatePicker.date;
-    self.editedTask.isTaskCompleted = self.taskCompleteSwitch.on;
-    
-    [self.delegate didSaveTask];
-}
 
 @end
