@@ -88,6 +88,11 @@
     else if ([self isDateGreaterThanDate:[NSDate date] and:task.taskDate])
         cell.backgroundColor = [UIColor redColor];
     else cell.backgroundColor = [UIColor yellowColor];
+    
+    // hide completed task, if cooreponding pref is enabled
+    if (task.isTaskCompleted && [[[NSUserDefaults standardUserDefaults] objectForKey:PREF_HIDE_COMPLETED_TASK] boolValue]) cell.hidden = YES;
+    else cell.hidden = NO;
+    
     return cell;
 }
 
@@ -157,6 +162,10 @@
         detailTaskViewController.task = [self.taskObjects objectAtIndex:indexPath.row];
         detailTaskViewController.delegate = self;
     }
+    if ([segue.destinationViewController isKindOfClass:[PrefsTableViewController class]]) {
+        PrefsTableViewController *prefsViewController = segue.destinationViewController;
+        prefsViewController.delegate = self;
+    }
 }
 
 #pragma mark - AddViewController Delegate
@@ -201,6 +210,14 @@
     [self.tableView reloadData];
 }
 
+#pragma mark - PrefsTableViewController Delegate
+
+-(void)didSavePrefs{
+    NSLog(@"The delegated method didSavePrefs is being called");
+    [self.navigationController popViewControllerAnimated:YES];
+    [self.tableView reloadData];
+}
+
 #pragma mark - Helper Methods
 
 -(void)saveTasks
@@ -220,6 +237,7 @@
     [taskDict setValue:taskObject.taskTitle forKey:TASK_TITLE];
     [taskDict setValue:taskObject.taskDescription forKey:TASK_DESCRIPTION];
     [taskDict setValue:taskObject.taskDate forKey:TASK_DATE];
+    [taskDict setValue:taskObject.taskProgess forKey:TASK_PROGRESS];
     [taskDict setValue:@(taskObject.isTaskCompleted) forKey:TASK_COMPLETION];
     
     return taskDict;
@@ -246,6 +264,10 @@
     
     // toogle task completion state
     task.isTaskCompleted = !task.isTaskCompleted;
+    
+    // set/reset progress on completion toogle 
+    if (task.isTaskCompleted) task.taskProgess = @100;
+    else task.taskProgess = @0;
     
     // save updated task object as dictionary
     [savedTaskObjects insertObject:[self taskObjectAsDictionary:task] atIndex:indexPath.row];
