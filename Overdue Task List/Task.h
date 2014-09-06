@@ -14,6 +14,7 @@
 @property (strong, nonatomic) NSString *taskTitle;
 @property (strong, nonatomic) NSString *taskDescription;
 @property (strong, nonatomic) NSDate *taskDate;
+@property (strong, nonatomic) NSNumber *taskProgess;
 @property (nonatomic) BOOL isTaskCompleted;
 
 - (id)initWithData:(NSDictionary *)data;

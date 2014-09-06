@@ -24,6 +24,7 @@
         self.taskTitle = [data objectForKey:TASK_TITLE];
         self.taskDescription = [data objectForKey:TASK_DESCRIPTION];
         self.taskDate = [data objectForKey:TASK_DATE];
+        self.taskProgess = [data objectForKey:TASK_PROGRESS];
         
         self.isTaskCompleted = [data[TASK_COMPLETION] boolValue];
     }
