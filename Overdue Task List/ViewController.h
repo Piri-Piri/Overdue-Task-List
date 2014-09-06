@@ -17,7 +17,7 @@
 
 - (IBAction)orderTasksAction:(UIBarButtonItem *)sender;
 - (IBAction)addTaskAction:(UIBarButtonItem *)sender;
-
+- (IBAction)prefsAction:(UIBarButtonItem *)sender;
 
 @end
 

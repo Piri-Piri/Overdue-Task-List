@@ -41,6 +41,10 @@
     [self performSegueWithIdentifier:@"toAddTaskViewController" sender:sender];
 }
 
+- (IBAction)prefsAction:(UIBarButtonItem *)sender {
+    [self performSegueWithIdentifier:@"toPrefsTableViewController" sender:sender];
+}
+
 #pragma mark - Lazy Instantiation
 
 - (NSMutableArray *)taskObjects
