@@ -23,6 +23,7 @@
     self.taskNameTextField.text = self.editedTask.taskTitle;
     self.taskDescriptionTextView.text = self.editedTask.taskDescription;
     self.taskDatePicker.date = self.editedTask.taskDate;
+    self.taskCompleteSwitch.on = self.editedTask.isTaskCompleted;
 
 }
 
@@ -62,7 +63,9 @@
     self.editedTask.taskTitle = self.taskNameTextField.text;
     self.editedTask.taskDescription = self.taskDescriptionTextView.text;
     self.editedTask.taskDate = self.taskDatePicker.date;
+    self.editedTask.isTaskCompleted = self.taskCompleteSwitch.on;
     
     [self.delegate didSaveTask];
 }
+
 @end

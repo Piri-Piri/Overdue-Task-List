@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *taskNameTextField;
 @property (weak, nonatomic) IBOutlet UITextView *taskDescriptionTextView;
 @property (weak, nonatomic) IBOutlet UIDatePicker *taskDatePicker;
+@property (weak, nonatomic) IBOutlet UISwitch *taskCompleteSwitch;
 
 - (IBAction)editedTaskSaveAction:(UIBarButtonItem *)sender;
 
