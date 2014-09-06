@@ -15,8 +15,18 @@
 #define TASK_TITLE @"taskTitle"
 #define TASK_DESCRIPTION @"taskDescription"
 #define TASK_DATE @"taskDate"
+#define TASK_PROGRESS @"taskProgess"
 #define TASK_COMPLETION @"taskCompletion"
 
 #define TASK_OBJECTS_KEY @"taskObjectsKey"
+
+#define PREF_OVERDUE_COLOR @"overdueColorSelect"
+#define PREF_ONGOING_COLOR @"ongoingColorSelect"
+#define PREF_COMPLETE_COLOR @"completeColorSelect"
+#define PREF_CAPITALIZE_TITEL @"capitalizeTitel"
+#define PREF_HIDE_COMPLETED_TASK @"hideCompletedTasks"
+#define PREF_HIDE_EMPTY_SECTION @"hideEmptySection"
+#define PREF_INSERT_POSITION @"insertPositionSelect"
+#define PREF_SORT @"sortSelect"
 
 #endif
