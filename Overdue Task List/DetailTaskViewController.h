@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *taskNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *taskDescriptionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *taskDateLabel;
+@property (weak, nonatomic) IBOutlet UISwitch *taskCompletedSwitch;
 
 - (IBAction)editTaskAction:(UIBarButtonItem *)sender;
 

@@ -25,6 +25,8 @@
     [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
     // ...and present formmatted date
     self.taskDateLabel.text = [formatter stringFromDate:self.task.taskDate];
+    self.taskCompletedSwitch.on = self.task.isTaskCompleted;
+    self.taskCompletedSwitch.enabled = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -62,6 +64,7 @@
     [formatter setDateFormat:@"yyyy/MM/dd HH:mm:ss"];
     // ...and present formmatted date
     self.taskDateLabel.text = [formatter stringFromDate:self.task.taskDate];
+    self.taskCompletedSwitch.on = self.task.isTaskCompleted;
     
     [self.navigationController popViewControllerAnimated:YES];
     
