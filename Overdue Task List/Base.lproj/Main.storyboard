@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.8" systemVersion="14A329r" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="4sX-bX-RDk">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.9" systemVersion="14A329r" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="4sX-bX-RDk">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
     </dependencies>
@@ -12,7 +12,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iphone-5-wallpapers-hd-34.jpg" id="JYa-SQ-gZB">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background.jpg" id="JYa-SQ-gZB">
                                 <rect key="frame" x="-8" y="0.0" width="335" height="568"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
@@ -99,15 +99,15 @@
                             <textField opaque="NO" clipsSubviews="YES" alpha="0.89999999999999991" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="editTaskName" placeholder="task name" textAlignment="center" minimumFontSize="17" id="duV-1v-uyU">
                                 <rect key="frame" x="0.0" y="84" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.89999999999999991" contentMode="scaleToFill" text="editDescription" id="i58-o2-AS5">
-                                <rect key="frame" x="0.0" y="136" width="320" height="179"/>
+                                <rect key="frame" x="0.0" y="136" width="320" height="115"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -137,6 +137,21 @@
                                     <!--2009-12-31 23:00:00 +0000-->
                                 </date>
                             </datePicker>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" id="wk8-BD-IPu">
+                                <rect key="frame" x="14" y="259" width="292" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="updateProgessAction:" destination="z16-VV-gT2" eventType="valueChanged" id="Jen-nf-WRr"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wQ6-7Z-Smo">
+                                <rect key="frame" x="108" y="263" width="105" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -153,6 +168,8 @@
                         <outlet property="taskDatePicker" destination="pgR-rd-AxJ" id="Ag3-ZV-kxE"/>
                         <outlet property="taskDescriptionTextView" destination="i58-o2-AS5" id="7bf-EY-4GK"/>
                         <outlet property="taskNameTextField" destination="duV-1v-uyU" id="ccY-nu-V6m"/>
+                        <outlet property="taskProgessLabel" destination="wQ6-7Z-Smo" id="4Dz-Y1-zFE"/>
+                        <outlet property="taskProgressSilder" destination="wk8-BD-IPu" id="hAl-va-A6y"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MZb-Dz-3vx" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -210,13 +227,28 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.89999999999999991" contentMode="scaleToFill" id="Fli-Hy-wYN">
-                                <rect key="frame" x="16" y="120" width="288" height="205"/>
+                                <rect key="frame" x="16" y="120" width="288" height="164"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" id="5rr-Tk-7VH">
+                                <rect key="frame" x="14" y="299" width="292" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <action selector="updateProgessAction:" destination="eHA-S5-bfo" eventType="valueChanged" id="1LI-x5-SAL"/>
+                                </connections>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4p8-dq-fAq">
+                                <rect key="frame" x="108" y="303" width="105" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -224,6 +256,8 @@
                         <outlet property="taskDatePicker" destination="qZU-x0-Kgu" id="Ant-CJ-gdO"/>
                         <outlet property="taskDescriptionTextView" destination="Fli-Hy-wYN" id="yLc-JU-WSt"/>
                         <outlet property="taskNameTextField" destination="k4L-ak-elL" id="orO-kZ-Dqq"/>
+                        <outlet property="taskProgessLabel" destination="4p8-dq-fAq" id="SFP-EI-M7t"/>
+                        <outlet property="taskProgressSilder" destination="5rr-Tk-7VH" id="cS2-T2-2sG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mu0-Ho-DeG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -457,7 +491,14 @@
                             <outlet property="delegate" destination="N46-K4-Z59" id="dkS-4P-Huc"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="IDZ-eZ-JVN"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="IDZ-eZ-JVN">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="8cZ-L7-wps">
+                            <connections>
+                                <action selector="savePrefsAction:" destination="N46-K4-Z59" id="qq0-lz-WlL"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="capitalizeTitelSwitch" destination="8mn-m5-HeP" id="WVY-Br-ArE"/>
                         <outlet property="completeColorSelect" destination="hp7-Mt-tzv" id="Bmp-9O-WTc"/>
@@ -490,20 +531,20 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="Egd-gH-Ilg">
-                                <rect key="frame" x="16" y="393" width="51" height="31"/>
+                                <rect key="frame" x="16" y="469" width="51" height="31"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="onTintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="thumbTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             </switch>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task Completed?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0jo-4G-ONZ">
-                                <rect key="frame" x="73" y="398" width="247" height="21"/>
+                                <rect key="frame" x="73" y="474" width="247" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" alpha="0.89999999999999991" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="taskDate" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="g7P-y3-P3O">
-                                <rect key="frame" x="0.0" y="346" width="320" height="30"/>
+                                <rect key="frame" x="0.0" y="422" width="320" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -516,6 +557,18 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="100" id="nte-j4-Fd3">
+                                <rect key="frame" x="14" y="356" width="292" height="31"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </slider>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Progress" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qZV-OT-KGk">
+                                <rect key="frame" x="108" y="360" width="105" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -534,6 +587,8 @@
                         <outlet property="taskDateLabel" destination="g7P-y3-P3O" id="1Pl-o1-yKB"/>
                         <outlet property="taskDescriptionLabel" destination="h8k-Ik-V2d" id="rqn-mw-XVD"/>
                         <outlet property="taskNameLabel" destination="lva-6R-sGd" id="OZD-G2-rYD"/>
+                        <outlet property="taskProgessSlider" destination="nte-j4-Fd3" id="A1g-Zd-RaP"/>
+                        <outlet property="taskProgressLabel" destination="qZV-OT-KGk" id="Mta-ER-Vh0"/>
                         <segue destination="z16-VV-gT2" kind="push" identifier="toEditTaskViewController" id="rRA-LD-XFy"/>
                     </connections>
                 </viewController>
@@ -568,7 +623,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="iphone-5-wallpapers-hd-34.jpg" width="640" height="1136"/>
+        <image name="background.jpg" width="640" height="1136"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
