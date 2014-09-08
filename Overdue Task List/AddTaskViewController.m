@@ -39,6 +39,8 @@
 }
 
 - (IBAction)updateProgessAction:(UISlider *)sender {
+    int progressStep = [[[NSUserDefaults standardUserDefaults] objectForKey:PREF_PROGRESS_STEP] intValue];
+    self.taskProgressSilder.value = ((NSInteger)((self.taskProgressSilder.value + progressStep/2) / progressStep) * progressStep);
     self.taskProgessLabel.text = [NSString stringWithFormat:@"%i", (int)self.taskProgressSilder.value];
 }
 
