@@ -25,8 +25,8 @@
 
 }
 
--(void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     NSArray *cells = [self.tableView visibleCells];
     for (UITableViewCell *cell in cells) {
         if ([cell.textLabel.text isEqualToString:self.progressStep]) {
