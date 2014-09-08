@@ -28,5 +28,6 @@
 #define PREF_HIDE_EMPTY_SECTION @"hideEmptySection"
 #define PREF_INSERT_POSITION @"insertPositionSelect"
 #define PREF_SORT @"sortSelect"
+#define PREF_PROGRESS_STEP @"progressStep"
 
 #endif
