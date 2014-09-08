@@ -32,6 +32,8 @@
     self.hideEmptySectionSwitch.on =  [[[NSUserDefaults standardUserDefaults] objectForKey:PREF_HIDE_EMPTY_SECTION] boolValue];
     self.insertPositionSelect.selectedSegmentIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:PREF_INSERT_POSITION] integerValue];
     self.sortSelect.selectedSegmentIndex = [[[NSUserDefaults standardUserDefaults] objectForKey:PREF_SORT] integerValue];
+    self.progessStep.text = [[NSUserDefaults standardUserDefaults] objectForKey:PREF_PROGRESS_STEP];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -39,7 +41,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark IBAction methods
+#pragma mark - IBAction methods
 
 - (IBAction)savePrefsAction:(UIBarButtonItem *)sender {
     // save prefs from NSUserDefaults
@@ -51,8 +53,53 @@
     [[NSUserDefaults standardUserDefaults] setObject:@(self.hideEmptySectionSwitch.on) forKey:PREF_HIDE_EMPTY_SECTION];
     [[NSUserDefaults standardUserDefaults] setObject:@(self.insertPositionSelect.selectedSegmentIndex) forKey:PREF_INSERT_POSITION];
     [[NSUserDefaults standardUserDefaults] setObject:@(self.sortSelect.selectedSegmentIndex) forKey:PREF_SORT];
-    
+    [[NSUserDefaults standardUserDefaults] setObject:self.progessStep.text forKey:PREF_PROGRESS_STEP];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+     
     [self.delegate didSavePrefs];
+}
+
+- (IBAction)sortOrderAction:(UISegmentedControl *)sender {
+    [self.tableView reloadData];
+}
+
+#pragma mark - ProgressSettingTableViewControllerDelegate
+
+-(void)didSaveProgressStep:(NSString *)progessStep {
+    self.progessStep.text = progessStep;
+}
+
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([segue.destinationViewController isKindOfClass:[ProgressSettingTableViewController class]]) {
+        ProgressSettingTableViewController *progressSettingTableViewController = segue.destinationViewController;
+        progressSettingTableViewController.delegate = self;
+        progressSettingTableViewController.progressStep = self.progessStep.text;
+    }
+}
+
+#pragma mark - UITableView Data Source
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [super tableView:tableView cellForRowAtIndexPath:indexPath];
+    
+    if (indexPath.section == Sort) {
+        if (self.sortSelect.selectedSegmentIndex == None && indexPath.row == SortAcending) {
+            cell.hidden = YES;
+            return 0;
+        }
+        if (self.sortSelect.selectedSegmentIndex != None && indexPath.row == InsertPosition) {
+            cell.hidden = YES;
+            return 0;
+        }
+    }
+    
+    cell.hidden = NO;
+    return [super tableView:tableView heightForRowAtIndexPath:indexPath];
 }
 
 /*
@@ -96,16 +143,6 @@
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     // Return NO if you do not want the item to be re-orderable.
     return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
 }
 */
 
