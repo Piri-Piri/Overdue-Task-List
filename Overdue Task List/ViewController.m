@@ -58,7 +58,6 @@
 #pragma mark - TableView data source
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    // only one section defined
     return 1;
 }
 
@@ -66,15 +65,15 @@
     return [self.taskObjects count];
 }
 
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     static NSString *CellIdentifier = @"taskCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-    
-    //Configure the cell...
-    
-    // catch corresponding the task object
+
+    // Catch corresponding the task object
     Task *task = [self.taskObjects objectAtIndex:indexPath.row];
     
+    // Configure the cell...
     cell.textLabel.text = task.taskTitle;
     
     // Set date format
@@ -84,14 +83,33 @@
     cell.detailTextLabel.text = [formatter stringFromDate:task.taskDate];
     
     // Set background depending on task is overdue or not
-    if (task.isTaskCompleted) cell.backgroundColor = [UIColor greenColor];
-    else if ([self isDateGreaterThanDate:[NSDate date] and:task.taskDate])
-        cell.backgroundColor = [UIColor redColor];
-    else cell.backgroundColor = [UIColor yellowColor];
-    
-    // hide completed task, if cooreponding pref is enabled
-    if (task.isTaskCompleted && [[[NSUserDefaults standardUserDefaults] objectForKey:PREF_HIDE_COMPLETED_TASK] boolValue]) cell.hidden = YES;
-    else cell.hidden = NO;
+    if (task.isTaskCompleted){
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_COMPLETE_COLOR] intValue] == green) {
+            cell.backgroundColor = [UIColor greenColor];
+        } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_COMPLETE_COLOR] intValue] == blue) {
+            cell.backgroundColor = [UIColor blueColor];
+        } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_COMPLETE_COLOR] intValue] == gray) {
+            cell.backgroundColor = [UIColor lightGrayColor];
+        }
+    }
+    else if ([self isDateGreaterThanDate:[NSDate date] and:task.taskDate]) {
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_OVERDUE_COLOR] intValue] == orange) {
+            cell.backgroundColor = [UIColor orangeColor];
+        } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_OVERDUE_COLOR] intValue] == cyan) {
+            cell.backgroundColor = [UIColor cyanColor];
+        } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_OVERDUE_COLOR] intValue] == yellow) {
+            cell.backgroundColor = [UIColor yellowColor];
+        }
+    }
+    else {
+        if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_ONGOING_COLOR] intValue] == red) {
+            cell.backgroundColor = [UIColor redColor];
+        } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_ONGOING_COLOR] intValue] == purple) {
+            cell.backgroundColor = [UIColor purpleColor];
+        } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_ONGOING_COLOR] intValue] == magenta) {
+            cell.backgroundColor = [UIColor magentaColor];
+        }
+    }
     
     return cell;
 }
@@ -174,22 +192,14 @@
     NSLog(@"The delegated method didAddTask is being called");
     
     // add task to taskObjects
-    [self.taskObjects addObject:task];
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_INSERT_POSITION] intValue] == begin) {
+        [self.taskObjects insertObject:task atIndex:0];
+    } else {
+        [self.taskObjects addObject:task];
+    }
     
-    // load saved tasks
-    NSMutableArray *tasksAsPropertyLists = [[[NSUserDefaults standardUserDefaults] arrayForKey:TASK_OBJECTS_KEY] mutableCopy];
-    
-    // init, if no saved tasks at NSUSerDefaults found
-    if (!tasksAsPropertyLists) tasksAsPropertyLists = [[NSMutableArray alloc] init];
-    
-    // add task as PropertyList (NSDictionary)
-    [tasksAsPropertyLists addObject:[self taskObjectAsDictionary:task]];
-    
-    // write array with tasks (NSDictionary) back to NSUSerDefaults
-    [[NSUserDefaults standardUserDefaults] setObject:tasksAsPropertyLists forKey:TASK_OBJECTS_KEY];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-    
-    // refresh tableview with new data
+    // save task objects to nsuserdefaults and refresh tableview
+    [self saveTasks];
     [self.tableView reloadData];
     
     // dismiss modal segue animated
@@ -226,6 +236,21 @@
     NSMutableArray *taskObjectAsDictionary = [[NSMutableArray alloc] init];
     for (int x = 0; x < [self.taskObjects count]; x ++){
         [taskObjectAsDictionary addObject:[self taskObjectAsDictionary:self.taskObjects[x]]];
+    }
+    
+    // sort task objects (including dictionary for nsuserdefaults)
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_SORT] intValue] == Date) {
+        NSLog(@"Sort by Task Date");
+        NSSortDescriptor *dateAddedSortDesc = [[NSSortDescriptor alloc] initWithKey:@"taskDate" ascending:YES];
+        NSArray *sortDescriptors = @[dateAddedSortDesc];
+        [self.taskObjects sortUsingDescriptors:sortDescriptors];
+        [taskObjectAsDictionary sortUsingDescriptors:sortDescriptors];
+    } else if ([[[NSUserDefaults standardUserDefaults] objectForKey:PREF_SORT] intValue] == Title) {
+        NSLog(@"Sort by Task Title");
+        NSSortDescriptor *dateAddedSortDesc = [[NSSortDescriptor alloc] initWithKey:@"taskTitle" ascending:YES];
+        NSArray *sortDescriptors = @[dateAddedSortDesc];
+        [self.taskObjects sortUsingDescriptors:sortDescriptors];
+        [taskObjectAsDictionary sortUsingDescriptors:sortDescriptors];
     }
     
     [[NSUserDefaults standardUserDefaults] setObject:taskObjectAsDictionary forKey:TASK_OBJECTS_KEY];
