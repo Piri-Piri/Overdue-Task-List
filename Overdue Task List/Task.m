@@ -26,7 +26,7 @@
         self.taskDate = [data objectForKey:TASK_DATE];
         self.taskProgess = [data objectForKey:TASK_PROGRESS];
         
-        self.isTaskCompleted = [data[TASK_COMPLETION] boolValue];
+        self.isTaskCompleted = [[data objectForKey:TASK_COMPLETION] boolValue];
     }
     return self;
 }
